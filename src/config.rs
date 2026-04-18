@@ -14,7 +14,7 @@ pub enum Platform {
 
 // Constants //
 
-pub static APP_NAME: &str = "SWD";
+pub static APP_NAME: &str = "rust_template";
 pub static CURRENT_CONTEXT: ContextMode = if cfg!(debug_assertions) { ContextMode::Dev } else { ContextMode::Port };
 
 #[cfg(target_os = "windows")]
