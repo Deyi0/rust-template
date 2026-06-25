@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "shift": false,
+      "ctrl": false,
+      "alt": true,
+      "meta": true,
+      "key": "KeyV",
+      "method": "HotKey",
+      "trigger": "Press",
+      "action": "Quit"
+    }
+  ]
+}

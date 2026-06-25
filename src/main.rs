@@ -1,23 +1,22 @@
-// Mod //
+// MOD //
 
 mod app;
 mod config;
-mod core;
+mod modules;
+mod features;
 mod ui;
-mod services;
-mod utils;
 
-// Import //
+// IMPORT //
 
 use std::{env, path::PathBuf, sync::OnceLock};
 
-use crate::config::{CURRENT_CONTEXT, CURRENT_PLATFORM, ContextMode};
+use crate::config::{CURRENT_CONTEXT, ContextMode};
 
-// Constant //
+// CONSTANT //
 
 static RESOURCE_ROOT: OnceLock<PathBuf> = OnceLock::new();
 
-// Helper //
+// PRIVATE //
 
 fn resolve_resource_root() {
     let result = if CURRENT_CONTEXT == ContextMode::Dev {
@@ -46,17 +45,15 @@ pub fn get_path(path: &str) -> PathBuf {
     get_base_path().join(path)
 }
 
-fn initial_log() {
-    println!("Current context: {:?}", CURRENT_CONTEXT);
-    println!("Platform: {:?}", CURRENT_PLATFORM);
-    println!("Portable directory: {:?}", get_base_path());
-}
-
-// Main //
+// PUBLIC //
 
 fn main() {
     resolve_resource_root();
-    initial_log();
     
-    app::run();
+    if let Err(error) = app::run() {
+        eprintln!("Application error: {error}");
+        std::process::exit(1);
+    } else {
+        
+    }
 }

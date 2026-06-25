@@ -1,4 +1,8 @@
-// Enum //
+// IMPORT //
+
+use std::{env::consts::OS};
+
+// ENUM //
 
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -9,17 +13,21 @@ pub enum ContextMode {
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub enum Platform {
-    Windows, Linux, Other
+    Windows, Linux, MacOS, Android, IOS, Other
 }
 
-// Constants //
+// CONSTANTS //
 
-pub static APP_NAME: &str = "rust_template";
+pub static APP_NAME: &str = "RustTemplate";
 pub static CURRENT_CONTEXT: ContextMode = if cfg!(debug_assertions) { ContextMode::Dev } else { ContextMode::Port };
 
-#[cfg(target_os = "windows")]
-pub static CURRENT_PLATFORM: Platform = Platform::Windows;
-#[cfg(target_os = "linux")]
-pub static CURRENT_PLATFORM: Platform = Platform::Linux;
-#[cfg(not(any(target_os = "windows", target_os = "linux")))]
-pub static CURRENT_PLATFORM: Platform = Platform::Other;
+pub(crate) fn current_platform() -> Platform {
+    match OS {
+        "windows" => Platform::Windows,
+        "macos" => Platform::MacOS,
+        "linux" => Platform::Linux,
+        "android" => Platform::Android,
+        "ios" => Platform::IOS,
+        _ => Platform::Other
+    }
+}
